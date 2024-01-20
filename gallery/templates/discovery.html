@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="page-content">
+
+        <!-- ***** Banner Start ***** -->
+        <div class="main-banner1">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="header-text">
+                <div class="row" style="align-items: center;">
+                  {% for post in posts.items %}
+                    <div class="col-lg-3 col-sm-6">
+                      <div class="item" style="min-height: 200px;">
+                        <a href="{{url_for('posts.post', post_id = post.id)}}" class="logo">
+                        <img src="{{ url_for('static', filename="posts_media/" + post.image_file) }}">
+                        </a>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+         </div>
+      <div class="mt-3 container d-flex justify-content-center">
+          {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+          {% if page_num %}
+            {% if posts.page == page_num %}
+              <a class="btn btn-info mb-4 me-1 ms-1" href="{{ url_for('main.Discovery', page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+              <a class="btn btn-outline-info mb-4 me-1 ms-1" href="{{ url_for('main.Discovery', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+          {%else %}
+            <h4 class="me-1 ms-1 mb-4" style="transform: translateY(0.9rem);">...</h4>
+          {% endif %}
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

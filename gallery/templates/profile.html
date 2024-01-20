@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="page-content">
+
+            <!-- ***** Banner Start ***** -->
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="main-profile ">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <img src="{{ url_for('static', filename='profile_pics/' + user.pfp) }}" alt="" style="border-radius: 23px;">
+                    </div>
+                    <div class="col-lg-4 align-self-center">
+                      <div class="main-info header-text">
+                        <h3 class="mb-1">{{ user.firstname }} {{ user.lastname }}</h3>
+                        <h6>@{{ user.username }}</h6>
+                        {% if uploaded_images == 0 %}<p>{% if current_user == user %}You {% endif %}Haven't uploaded anything yet </p>{% endif %}
+                        {% if current_user == user %}
+                          <div class="main-border-button">
+                            <a href="{{ url_for('posts.new_post')}}">Upload here</a>
+                            <a href="{{ url_for('users.updateProfile') }}">Edit info</a>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="col-lg-4 align-self-center">
+                      <ul>
+                        <li>Uploaded images <span>{{uploaded_images}}</span></li>
+                        <li>Total votes <span>{{votes}}</span></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="clips">
+                    <div class="row" style="align-items: center;">
+                      <div class="col-lg-12">
+                        <div class="heading-section">
+                          <h4><em>Uploaded</em> images</h4>
+                        </div>
+                      </div>
+                      {% for post in uploaded_posts %}
+                        <div class="col-lg-3 col-sm-6">
+                          <div class="item">
+                            <div class="thb">
+                              <a href="{{url_for('posts.post', post_id = post.id)}}" class="logo">
+                              <img src="{{url_for('static', filename="posts_media/" + post.image_file)}}" alt="" style="border-radius: 23px;">
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- ***** Banner End ***** -->
+
+            <!-- ***** Gaming Library Start ***** -->
+              <div class="clips">
+                <div class="row" style="align-items: center;">
+                  <div class="col-lg-12">
+                    <div class="heading-section">
+                      <h4><em>Saved</em> images</h4>
+                    </div>
+                  </div>
+                  {% for post in saved_posts %}
+                    <div class="col-lg-3 col-sm-6">
+                      <div class="item">
+                        <div class="thb">
+                          <a href="{{url_for('posts.post', post_id = post.id)}}" class="logo">
+                          <img src="{{url_for('static', filename="posts_media/" + post.image_file)}}" alt="" style="border-radius: 23px;">
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          <!-- ***** Gaming Library End ***** -->
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <p>Copyright © 2036 <a href="#">Cyborg Gaming</a> Company. All rights reserved.
+
+              <br>Design: <a href="https://templatemo.com" target="_blank" title="free CSS templates">TemplateMo</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+{% endblock content %}

@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="container">
+    <div class="page-content-upload">
+
+      <!-- ***** Banner Start ***** -->      
+      <form method="POST" action="#" enctype="multipart/form-data">
+        {{form.hidden_tag()}}
+        <div class ="second_element">
+          <div class="description">
+          <h5>{{form.description.label() }}</h5>
+          </div>
+          <div class="text_div">
+          {{ form.description(class = "textaria", placeholder="Write the photo description here " ) }}
+          </div>
+        </div>
+        <div class ="first_element">
+          <div class="title">
+          <h5>{{form.title.label}}</h5>
+          </div>
+          <div class="title_div">
+          {{ form.title(class = "title_botton", placeholder="Write the photo title here") }}
+          </div>
+        </div>   
+        <div>
+           {{ form.image_file(class="form-control-file", style="display: none") }}
+           <label for="{{ form.image_file.id }}" class="rounded-circle account-img" style="cursor: pointer;">
+            <img src="{{url_for('static', filename='/assets/css/upload.png')}}" alt="Upload image here" title="uplode image here" class ="Uploded_photo" width="350" height="450">
+            </label>
+        </div>   
+        <div class="text-center mb-2">
+          <button class="cssbuttons-io-button">
+            {{ form.submit(class="btn") }}
+          </button>
+        </div>
+        <div class="cat_container">
+          <div class="dropdown">
+          {{ form.category( class="btn btn-primary category-button") }}
+            <ul class="dropdown-menu category-list" aria-labelledby="categoryDropdown">
+          </div>
+        </div>
+    </div>
+  </div>           
+{% endblock content %}

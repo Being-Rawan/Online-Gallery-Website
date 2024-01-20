@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container" style="background: url({{ url_for('static', filename='assets/css/mo.jpg' ) }});background-size: cover;min-height: 86vh; transform: translateY(2vh);border-radius: 1rem ;min-width: 96vw;">
+    <div class="page-content" style="background-color: transparent;">
+        <div class="container align-items-center"
+            style="background-color: rgba(255, 255, 255, 0.6); backdrop-filter: blur(30px); padding: 7vh 7vw;border-radius: 20px; box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.1);max-width: 700px;">
+            <div class="content-section">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class='alert alert-{{ category }}'>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="mt-2 header-text">
+                        <fieldset class="form-group">
+                            <legend class="mb-1">Log In</legend>
+                            <hr class="mb-4">
+                            <div class="mb-3">
+                                {{ form.email.label(class="form-label") }}
+                                {% if form.email.errors %}
+                                    {{ form.email(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for errors in form.email.errors %}
+                                            <span>{{ errors }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.email(class="form-control") }}
+                                {% endif %}
+                            </div>
+                            <div class="mb-2">
+                                {{ form.password.label(class="form-label") }}
+                                {% if form.password.errors %}
+                                    {{ form.password(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for errors in form.password.errors %}
+                                            <span>{{ errors }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.password(class="form-control") }}
+                                {% endif %}
+                            </div>
+                            <div class="me-2 mb-2">
+                                {{ form.remember(class="form-check-input") }}
+                                {{ form.remember.label(class="form-check-label mb-2") }}
+                            </div>
+                            <div class="d-flex mb-3" style="justify-content: space-between;"> 
+                                    <small>Don't have an account? <a href="{{ url_for('users.register') }}" class="ms-1" style="color: #2E88E7;">Sign Up NOW!</a></small>
+                                    <small><a href="#" class="ms-1" style="color: #2E88E7;">Forgot Password?</a></small>
+                            </div>
+                            <div class="button d-flex justify-content-center">
+                                {{ form.submit(class="mt-1 btn btn-lg", style="border-radius: 23px; border: 13px;background-color:#407E9B;color:white;width: 11rem;") }}
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
